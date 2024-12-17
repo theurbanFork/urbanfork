@@ -1,0 +1,38 @@
+<header>
+  <div class="burger" onclick="navClick()" ≈>
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+  </div>
+  <ul class="navbar flex-container gap20">
+    <li><a href="/" class="link">Home</a></li>
+    <li><a href="../products/all" class="link">View Menu</a></li>
+    <li>
+      <a href="/order" class="link">View Order</a>
+      <div class="dot"></div>
+    </li>
+  </ul>
+</header>
+
+<script>
+  function navClick() {
+    const navbar = document.querySelector(".navbar-active");
+    if (navbar) {
+      navbar.classList.remove("navbar-active");
+    } else {
+      document.querySelector(".navbar").classList.add("navbar-active");
+    }
+  }
+  function setDot() {
+    const dot = document.querySelector(".dot");
+    let cart = JSON.parse(localStorage.getItem("cart"));
+    if (cart.length > 0) {
+      dot.classList.add("dot-active");
+    } else {
+      dot.classList.remove("dot-active");
+    }
+  }
+  document.addEventListener("DOMContentLoaded", setDot);
+
+  document.addEventListener("click", setDot);
+</script>

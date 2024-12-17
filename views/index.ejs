@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('partials/header') %>
+  </head>
+  <body>
+    <%- include('partials/navbar') %>
+    <section class="flex-container center-flex column-flex gap20 hero">
+      <h2 class="center-text"><span>Urban Fork</span></h2>
+      <h1 class="center-text">Serve Better Manage Smarter</h1>
+      <p class="center-text">Best online restaurant in town</p>
+      <a href="/products/all" class="button">View Menu</a>
+    </section>
+    <section class="flex-container column-flex gap30">
+      <h2>Most Popular Items</h2>
+      <div class="grid gap10">
+        <% if (products.length > 0) {%> <% products.forEach(product => { %>
+        <div class="card flex-container column-flex gap10">
+          <img src="..<%= product.image %>" alt="<%= product.name %>" />
+          <div class="padding5">
+            <div
+              class="hitbox"
+              onclick="openPage('/products/<%= product._id %>')"
+            ></div>
+            <p><%= product.name %></p>
+            <p>$<%= product.price %></p>
+            <button
+              class="button"
+              onclick="addToCart({id:'<%= product._id%>', name:'<%= product.name%>'})"
+            >
+              Add To Order
+            </button>
+          </div>
+        </div>
+        <% }) %> <% } else {%> no products <%}%>
+      </div>
+      <a href="/products/all" class="button">View All</a>
+    </section>
+    <section class="flex-container column-flex gap30">
+      <h2>Item Categories</h2>
+      <div class="grid">
+        <% if (categories.length > 0) { categories.forEach(category => { %>
+
+        <div
+          class="card flex-container column-flex gap10"
+          onclick="openPage('/category/<%= category.id_%>')"
+        >
+          <img src="..<%= category.image%>" />
+          <div class="padding5">
+            <p><%= category.name%></p>
+            <a href="/category/<%= category.id_%>" class="button">View Items</a>
+          </div>
+        </div>
+        <% })} else { %>no categories<%}%>
+      </div>
+    </section>
+    <%- include('partials/footer') %>
+  </body>
+</html>

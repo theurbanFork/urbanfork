@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('partials/header') %>
+  </head>
+  <body>
+    <%- include('partials/navbar') %> <% if (product) {%>
+
+    <section class="flex-container column-flex gap30 hero">
+      <h1><%= product.name %></h1>
+      <div class="flex-container column-flex gap10">
+        <img
+          class="productImage"
+          src="..<%= product.image %>"
+          alt="<%= product.name %>"
+        />
+        <p class="small"><%= product.description %></p>
+        <% if (product.category_id) {%>
+        <a
+          href="/category/<%= product.category_id ? product.category_id._id : null %>"
+          class="link"
+          >View more from category</a
+        >
+        <%}%>
+        <p><span>$<%= product.price %></span></p>
+        <button
+          class="button"
+          onclick="addToCart({id:'<%= product._id%>', name:'<%= product.name%>'})"
+        >
+          Add To Order
+        </button>
+      </div>
+      <% } else {%> no products <%}%>
+    </section>
+    <%- include('partials/footer') %>
+  </body>
+</html>

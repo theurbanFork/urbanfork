@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('partials/header') %>
+  </head>
+  <body>
+    <%- include('partials/navbar') %>
+    <section class="flex-container column-flex gap30 hero">
+      <h1>All products</h1>
+      <div class="grid gap10">
+        <% if (products.length > 0) {%> <% products.forEach(product => { %>
+        <div
+          class="card flex-container column-flex gap10"
+          onclick="openPage('./products/<%= product._id %>')"
+        >
+          <img src="..<%= product.image %>" alt="<%= product.name %>" />
+          <div class="padding5">
+            <p><%= product.name %></p>
+            <p>$<%= product.price %></p>
+            <button
+              class="button"
+              onclick="addToCart({id:'<%= product._id%>', name:'<%= product.name%>'})"
+            >
+              Add To Order
+            </button>
+          </div>
+        </div>
+        <% }) %> <% } else {%> no products <%}%>
+      </div>
+    </section>
+    <%- include('partials/footer') %>
+  </body>
+</html>

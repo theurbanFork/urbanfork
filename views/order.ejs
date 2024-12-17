@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('partials/header') %>
+  </head>
+  <body onload="renderCart()">
+    <%- include('partials/navbar') %>
+    <section class="flex-container column-flex gap30 hero">
+      <h2>My Order</h2>
+      <form
+        method="post"
+        id="customer-form"
+        class="flex-container column-flex gap10"
+      >
+        <input type="text" name="name" id="name" placeholder="Name" required />
+        <input
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Email"
+          required
+        />
+        <input
+          type="text"
+          name="contact"
+          id="contact"
+          placeholder="Contact No"
+          required
+        />
+        <input type="submit" value="Order" class="button" />
+      </form>
+      <div id="ordersContainer" class="flex-container column-flex gap10"></div>
+      <button class="button" onclick="clearOrder()">Clear Order</button>
+    </section>
+
+    <script>
+      document
+        .getElementById("customer-form")
+        .addEventListener("submit", async (event) => {
+          event.preventDefault();
+
+          const name = document.getElementById("name").value;
+          const email = document.getElementById("email").value;
+          const contact_no = document.getElementById("contact").value;
+
+          const customerDetails = { name, email, contact_no };
+          if (cart.length > 0) {
+            try {
+              const response = await fetch("/order/checkout", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ customer: customerDetails, cart }),
+              });
+              if (response.status == 201) {
+                alert("Order recieved");
+              } else {
+                alert("Error Occured");
+              }
+            } catch (error) {
+              console.error("Checkout error:", error);
+            }
+          } else {
+            alert("You have no items in the order");
+          }
+        });
+
+      function renderCart() {
+        const ordersContainer = document.getElementById("ordersContainer");
+        ordersContainer.innerHTML = "";
+
+        cart.forEach((order) => {
+          const orderElement = document.createElement("div");
+          orderElement.classList.add("flex-container");
+          orderElement.classList.add("column-flex");
+          orderElement.classList.add("gap10");
+          orderElement.innerHTML = `
+        <p>${order.name}</p>
+        <p>Qty ${order.quantity}</p>
+        <div class='flex-container gap5'>
+           <button onclick='addToCart({id:"${order.id}", name:"${order.name}"})' class='button button-small'>+</button>
+       <button onclick='removeQuantity({id:"${order.id}", name:"${order.name}"})' class='button button-small'>-</button>
+      
+       <button onclick='removeCartItem({id:"${order.id}", name:"${order.name}"})' class='button button-small'>Delete Item</button></div>
+      `;
+          ordersContainer.appendChild(orderElement);
+        });
+      }
+
+      function clearCart() {
+        ordersContainer.innerHTML = "";
+      }
+    </script>
+    <%- include('partials/footer') %>
+  </body>
+</html>

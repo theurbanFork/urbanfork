@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/header') %>
+  </head>
+  <body>
+    <%- include('../partials/adminNav') %>
+    <section class="admin flex-container column-flex gap30 hero">
+      <h3>Products</h3>
+      <% if (products.length >0) {%> <% products.forEach(product => { %>
+      <div class="flex-container column-flex gap10">
+        <div class="flex-container gap5 card">
+          <img
+            src="..<%= product.image %>"
+            alt="<%= product.name %>"
+            width="100"
+            height="auto"
+          />
+          <div class="flex-container column-flex gap10">
+            <p><%= product.name %></p>
+            <p>Price: $<%= product.price %></p>
+            <p>
+              Category : <%= product.category_id ? product.category_id.name :
+              "No category" %>
+            </p>
+            <button
+              class="small-button button"
+              onclick="deleteItem('../products/delete/<%= product._id%>')"
+            >
+              Delete
+            </button>
+            <a
+              href="/products/edit/<%= product.id_%>"
+              class="small-button button"
+              >Edit</a
+            >
+          </div>
+        </div>
+
+        <% }) %> <% } else {%> no products <%}%>
+      </div>
+      <h2>Categories</h2>
+
+      <div class="flex-container column-flex gap10">
+        <% if (categories.length >0 ) { categories.forEach(category => { %>
+        <div class="flex-container gap5 card">
+          <img
+            src="..<%= category.image %>"
+            alt="<%= category.name %>"
+            width="100"
+            height="auto"
+          />
+          <div class="flex-container column-flex gap5">
+            <p><%= category.name%></p>
+            <button
+              class="small-button button"
+              onclick="deleteItem('../category/delete/<%= category._id%>')"
+            >
+              Delete
+            </button>
+            <a
+              href="/category/edit/<%= category.id_%>"
+              class="button small-button"
+              >Edit</a
+            >
+          </div>
+        </div>
+        <% })} else { %>no categories<%}%>
+      </div>
+
+      <h2>Users</h2>
+
+      <div class="flex-container column-flex gap10">
+        <% if (users.length > 0) { users.forEach(user => { %>
+        <div class="flex-container gap5 card">
+          <div class="flex-container column-flex gap5">
+            <p><%= user.username %></p>
+            <button
+              class="small-button button"
+              onclick="deleteItem('../admin/deleteuser/<%= user._id%>')"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+        <% })} else { %>no users<%}%>
+      </div>
+    </section>
+    <%- include('../partials/footer') %>
+  </body>
+</html>

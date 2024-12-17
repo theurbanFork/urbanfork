@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('partials/header') %>
+  </head>
+  <body>
+    <%- include('partials/adminNav') %>
+    <section
+      class="flex-container column-flex center-flex gap30 center-flex hero"
+    >
+      <h1>Register</h1>
+      <form
+        method="POST"
+        class="flex-container column-flex gap10"
+        id="form"
+        enctype="form-data"
+        action="./createuser"
+      >
+        <input type="text" name="username" placeholder="Username" required />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          required
+        />
+
+        <input type="submit" value="Register" class="button" />
+      </form>
+    </section>
+  </body>
+</html>

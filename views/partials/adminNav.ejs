@@ -1,0 +1,26 @@
+<header>
+  <div class="burger" onclick="navClick()">
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+  </div>
+  <ul class="navbar flex-container gap20">
+    <li><a href="/admin" class="link">Home</a></li>
+    <li><a href="../../admin/register" class="link">Add User</a></li>
+    <li><a href="../../products/new" class="link">Add Product</a></li>
+    <li><a href="../../category/new" class="link">Add Category</a></li>
+    <li><a href="../../orderpool" class="link">Order Pool</a></li>
+    <li><a href="../../admin/logout" class="link">Logout</a></li>
+  </ul>
+</header>
+
+<script>
+  function navClick() {
+    const navbar = document.querySelector(".navbar-active");
+    if (navbar) {
+      navbar.classList.remove("navbar-active");
+    } else {
+      document.querySelector(".navbar").classList.add("navbar-active");
+    }
+  }
+</script>

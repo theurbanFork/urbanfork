@@ -1,0 +1,23 @@
+pages 
+
+index
+all products
+product
+order 
+login
+order pool 
+add product 
+
+
+
+model
+
+products 
+(product_id, name, image, description, category_id, price, )
+orders 
+(order_id, status)
+customer 
+(customer_id, name, email, contact_no)
+category
+(category_id, name)
+

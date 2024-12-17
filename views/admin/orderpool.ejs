@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('../partials/header') %>
+  </head>
+  <body>
+    <%- include('../partials/adminNav') %>
+    <section class="admin flex-container column-flex gap30 hero">
+      <h1>Orders</h1>
+      <div id="ordersContainer" class="flex-container column-flex gap20"></div>
+    </section>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+      const socket = io();
+
+      socket.on("allOrders", (orders) => {
+        const ordersContainer = document.getElementById("ordersContainer");
+        ordersContainer.innerHTML = "";
+        orders.forEach((order) => {
+          const orderElement = document.createElement("div");
+          orderElement.classList.add("order");
+          let order_details = "";
+          console.log(order);
+          order.products.forEach((element) => {
+            order_details =
+              order_details +
+              `<br>Order Item : ${element.name}<br>Order Item Id : ${element.id}<br>Order Quantity : ${element.quantity}`;
+          });
+          orderElement.innerHTML = `
+        <h3>Order #${order._id}</h3>
+        <p>Customer: ${order.customer.name}</p>
+        <p>Status: ${order.status}</p>
+        <p>Order details : <br>${order_details}</p>
+        <div class="flex-container gap10">
+        <select name="status" id="status">
+          <option value="Pending">Pending</option>
+          <option value="Completed">Completed</option>
+          <option value="Picked">Picked</option>
+          <option value="Cancelled">Cancelled</option>
+          </select>
+        <button onClick="update('${order._id}', this)" class="button">Update</button></div>
+      `;
+
+          ordersContainer.appendChild(orderElement);
+        });
+      });
+
+      async function update(orderID, button) {
+        const body = button.parentElement.querySelector("#status").value;
+        console.log(body);
+        try {
+          const response = await fetch(`order/update/${orderID}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ status: body }),
+          });
+
+          const result = await response.text();
+          alert(result);
+        } catch (err) {
+          console.error("Error:", err);
+          alert("Failed to update category");
+        }
+      }
+    </script>
+    <%- include('../partials/footer') %>
+  </body>
+</html>
