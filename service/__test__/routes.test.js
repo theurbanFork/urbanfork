@@ -23,7 +23,7 @@ describe("Testing routes", () => {
     jest.restoreAllMocks(); 
   });
 
-
+}
 
 describe("Testing routes", () => {
   test("GET / - should return 200 if user access the home page", async () => {
