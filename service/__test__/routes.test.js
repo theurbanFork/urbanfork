@@ -1,6 +1,14 @@
 const request = require("supertest");
 const app = require("../../server");
 
+beforeAll(() => {
+  // Mock the res.render method to prevent actual rendering in tests
+  jest.spyOn(global, "res").mockImplementation((view, locals, callback) => {
+    callback(null, "Rendered page"); // Simulate successful rendering
+  });
+});
+
+
 describe("Testing routes", () => {
   test("GET / - should return the homepage with products and categories", async () => {
     const res = await request(app).get("/");
