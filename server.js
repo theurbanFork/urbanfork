@@ -59,7 +59,7 @@ app.get("/orderpool", (req, res) => {
   if (req.session.user) {
     res.render("./admin/orderpool.ejs");
   } else {
-    res.send("401");
+    res.status(401).send("401");
   }
 });
 
@@ -86,3 +86,5 @@ io.on("connection", async (socket) => {
 server.listen(port, () => {
   console.log("Server running on http://localhost:3000");
 });
+
+module.exports = app;

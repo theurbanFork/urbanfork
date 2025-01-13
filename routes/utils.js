@@ -10,7 +10,7 @@ function sanitizeInput(value) {
     allowedAttributes: {},
   });
 
-  return sanitizedValue;
+  return sanitizedValue.replace(/\\n/g, "<br>");
 }
 
 function checkUser(id) {

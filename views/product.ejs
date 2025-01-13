@@ -14,7 +14,7 @@
           src="..<%= product.image %>"
           alt="<%= product.name %>"
         />
-        <p class="small"><%= product.description %></p>
+        <p class="small"><%- product.description %></p>
         <% if (product.category_id) {%>
         <a
           href="/category/<%= product.category_id ? product.category_id._id : null %>"
