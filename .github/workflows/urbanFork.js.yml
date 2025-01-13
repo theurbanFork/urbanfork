@@ -16,20 +16,20 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2  
+      uses: actions/checkout@v2  # Checkout the repository to access your files
 
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
-        node-version: ${{ matrix.node-version }}  
+        node-version: ${{ matrix.node-version }}  # Use Node.js versions from the matrix
 
     - name: Install dependencies
-      run: npm install  # Install dependencies
-    - name: Install bcrypt
-      run: npm i bcrypt  # Install dependencies
-
+      run: |
+        npm install
+        npm rebuild bcrypt --build-from-source  # Rebuild bcrypt
 
     - name: Run tests
-      run: npm test  # Run tests
+      run: npm test
 
-
+    - name: Debug - List files in the current directory  # Optional debugging
+      run: ls -alh
