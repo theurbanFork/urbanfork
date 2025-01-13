@@ -1,6 +1,29 @@
 const request = require("supertest");
 const app = require("../../server");
 
+describe("Testing routes", () => {
+  let server;
+
+  beforeAll(() => {
+    server = app.listen(3000); 
+  });
+
+  afterAll(() => {
+    server.close();  
+  });
+
+  beforeEach(() => {
+   
+    jest.spyOn(global, "res").mockImplementation((view, locals, callback) => {
+      callback(null, "Rendered page"); 
+    });
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks(); 
+  });
+
+
 
 describe("Testing routes", () => {
   test("GET / - should return 200 if user access the home page", async () => {
