@@ -27,7 +27,8 @@ jobs:
       run: |
         npm install
         npm rebuild bcrypt --build-from-source  # Rebuild bcrypt
-
+        npm rebuild ejs --build-from-source
+        
     - name: Run tests
       run: npm test
 
