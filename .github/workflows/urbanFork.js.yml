@@ -25,6 +25,9 @@ jobs:
 
     - name: Install dependencies
       run: npm install  # Install dependencies
+    - name: Install bcrypt
+      run: npm i bcrypt  # Install dependencies
+
 
     - name: Run tests
       run: npm test  # Run tests
