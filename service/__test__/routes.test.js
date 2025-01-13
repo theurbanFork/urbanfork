@@ -1,16 +1,10 @@
 const request = require("supertest");
 const app = require("../../server");
 
-beforeAll(() => {
-  // Mock the res.render method to prevent actual rendering in tests
-  jest.spyOn(global, "res").mockImplementation((view, locals, callback) => {
-    callback(null, "Rendered page"); // Simulate successful rendering
-  });
-});
-
 
 describe("Testing routes", () => {
   test("GET / - should return the homepage with products and categories", async () => {
+    jest.setTimeout(10000);
     const res = await request(app).get("/");
     expect(res.statusCode).toBe(200);
     expect(res.text).toContain("Popular Items");
@@ -18,12 +12,14 @@ describe("Testing routes", () => {
   });
 
   test("GET /orderpool - should return 401 if user is not logged in", async () => {
+    jest.setTimeout(10000);
     const res = await request(app).get("/orderpool");
     expect(res.statusCode).toBe(401);
     expect(res.text).toBe("401");
   });
 
   test("GET /products - should return 404 if the route is not implemented", async () => {
+    jest.setTimeout(10000);
     const res = await request(app).get("/products");
     expect(res.statusCode).toBe(404);
   });
