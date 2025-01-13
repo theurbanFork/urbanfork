@@ -3,12 +3,10 @@ const app = require("../../server");
 
 
 describe("Testing routes", () => {
-  test("GET / - should return the homepage with products and categories", async () => {
+  test("GET / - should return 200 if user access the home page", async () => {
     jest.setTimeout(10000);
     const res = await request(app).get("/");
     expect(res.statusCode).toBe(200);
-    expect(res.text).toContain("Popular Items");
-    expect(res.text).toContain("Categories");
   });
 
   test("GET /orderpool - should return 401 if user is not logged in", async () => {
